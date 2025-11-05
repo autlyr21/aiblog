@@ -13,7 +13,6 @@
 - [ ] UI 레이아웃 기획 🙋
 - [ ] AGENTS.md 작성 🙋
 - [ ] 서버 구현
-  - [ ] sqlite 스키마 설정 (TBD)
   - [ ] 블로그 컨텐츠 CRUD API 구현 🤖
   - [ ] GitHub 데이터 연동 API 구현 🤖
   - [ ] Gemini 연동 API 구현 🤖
