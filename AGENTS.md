@@ -24,6 +24,7 @@ This project aims to build a personal and local blog service where user can fetc
 - CSS: Tailwind css v4, DaisyUI
 - Markdown Rendering: react-markdown
 - Markdown Editing: @uiw/react-md-editor
+- Skeleton Loading: react-loading-skeleton
 
 #### Back
 
@@ -63,6 +64,12 @@ front/
 ├── tsconfig.json
 ├── tsconfig.node.json
 ├── vite.config.ts
+├── references/
+│   ├── htmls/
+│   │   ├── EditPage.html ## Mock HTML + css for EditPage.html.
+│   │   ├── PostPage.html ## Mock HTML + css for PostPage.html.
+│   │   └── MainPage.html ## Mock HTML + css for MainPage.html.
+│   └── screenshots/
 └── package.json
 ```
 
@@ -135,6 +142,13 @@ tags: Array of relevant tags.
   - Constants: UPPER_SNAKE_CASE
 - Prefer arrow functions to regular functions.
 - Prefer interfaces to types when defining the shape of objects.
+
+### Frontend Considerations
+
+---
+
+- When building frontend components and pages, you must look at the relevant mock html file located under front/references/htmls/ directory for layout, structure, and styling.
+- Every components that are rely on data from backend server must have a loading skeleton, which should be made using react-loading-skeleton.
 
 ### Backend API
 
