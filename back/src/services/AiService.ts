@@ -63,7 +63,7 @@ export class AiService {
   };
 
   public generateStream = async (
-    input: AiGenerateRequest
+    input: AiGenerateRequest,
   ): Promise<AsyncIterable<{ text?: string }>> => {
     const contents = this.buildPrompt(input);
     const stream = await this.ai.models.generateContentStream({
@@ -71,7 +71,7 @@ export class AiService {
       contents,
       config: {
         thinkingConfig: {
-          thinkingBudget: -1,
+          thinkingBudget: 128,
         },
       },
     });
