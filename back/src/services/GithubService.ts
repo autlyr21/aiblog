@@ -28,6 +28,18 @@ export interface CommitDetails {
   stats: CommitStats;
   files: CommitFile[];
 }
+const convertStatus = (status: FileItem["status"]): CommitFile["status"] => {
+  const statusMap: Record<FileItem["status"], CommitFile["status"]> = {
+    modified: "modified",
+    added: "added",
+    removed: "deleted",
+    renamed: "renamed",
+    copied: "modified",
+    changed: "modified",
+    unchanged: "modified",
+  } as const;
+  return statusMap[status];
+};
 
 export class GithubService {
   private octokit: Octokit;
@@ -102,23 +114,7 @@ export class GithubService {
     };
 
     const files: CommitFile[] = (data.files ?? []).map((f: FileItem) => {
-      let status: CommitFile["status"] = "modified";
-      switch (f.status) {
-        case "added":
-          status = "added";
-          break;
-        case "modified":
-          status = "modified";
-          break;
-        case "removed":
-          status = "deleted";
-          break;
-        case "renamed":
-          status = "renamed";
-          break;
-        default:
-          status = "modified";
-      }
+      let status: CommitFile["status"] = convertStatus(f.status);
       return {
         filename: f.filename,
         status,
