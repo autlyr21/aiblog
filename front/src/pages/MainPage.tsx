@@ -22,7 +22,7 @@ const formatDate = (iso: string) => {
 export const MainPage = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState<PostSummary[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const apiBase = useMemo(() => {
@@ -40,7 +40,9 @@ export const MainPage = () => {
       try {
         setLoading(true);
         setError(null);
-        const res = await fetch(`${apiBase}/posts`, { signal: controller.signal });
+        const res = await fetch(`${apiBase}/posts`, {
+          signal: controller.signal,
+        });
         if (!res.ok) {
           throw new Error(`Failed to load posts (${res.status})`);
         }
@@ -125,7 +127,9 @@ export const MainPage = () => {
             </Link>
           </h2>
 
-          <div className="text-sm text-gray-500 mb-3">{formatDate(post.date)}</div>
+          <div className="text-sm text-gray-500 mb-3">
+            {formatDate(post.date)}
+          </div>
 
           <p className="text-gray-700 leading-relaxed mb-4">
             {post.tags && post.tags.length
