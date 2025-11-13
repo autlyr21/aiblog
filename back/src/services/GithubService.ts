@@ -1,4 +1,5 @@
 import { Octokit } from "octokit";
+import type { CommitFile } from "../types/index.ts";
 
 export interface CommitListItem {
   hash: string;
@@ -10,15 +11,6 @@ export interface CommitStats {
   total: number;
   additions: number;
   deletions: number;
-}
-
-export interface CommitFile {
-  filename: string;
-  status: "added" | "modified" | "deleted" | "renamed";
-  additions: number;
-  deletions: number;
-  changes: number;
-  patch: string;
 }
 
 export interface CommitDetails {
@@ -56,7 +48,7 @@ export class GithubService {
 
   public listCommits = async (
     repoOrg: string,
-    repoName: string
+    repoName: string,
   ): Promise<CommitListItem[]> => {
     const commits = await this.octokit.paginate(
       "GET /repos/{owner}/{repo}/commits",
@@ -64,12 +56,14 @@ export class GithubService {
         owner: repoOrg,
         repo: repoName,
         per_page: 100,
-      }
+      },
     );
 
     return commits.map((c: any) => {
       const date: string =
-        c.commit?.author?.date || c.commit?.committer?.date || new Date(0).toISOString();
+        c.commit?.author?.date ||
+        c.commit?.committer?.date ||
+        new Date(0).toISOString();
       const message: string = c.commit?.message || "";
       return {
         hash: c.sha as string,
@@ -82,7 +76,7 @@ export class GithubService {
   public getCommitDetails = async (
     repoOrg: string,
     repoName: string,
-    commitHash: string
+    commitHash: string,
   ): Promise<CommitDetails> => {
     const { data } = await this.octokit.request(
       "GET /repos/{owner}/{repo}/commits/{ref}",
@@ -90,7 +84,7 @@ export class GithubService {
         owner: repoOrg,
         repo: repoName,
         ref: commitHash,
-      }
+      },
     );
 
     const stats: CommitStats = {
@@ -128,7 +122,9 @@ export class GithubService {
     });
 
     const date: string =
-      (data.commit as any)?.author?.date || (data.commit as any)?.committer?.date || new Date(0).toISOString();
+      (data.commit as any)?.author?.date ||
+      (data.commit as any)?.committer?.date ||
+      new Date(0).toISOString();
 
     return {
       hash: data.sha as string,
