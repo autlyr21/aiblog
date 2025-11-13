@@ -1,5 +1,9 @@
 import type { Request, Response } from "express";
 import { GithubService } from "../services/GithubService.ts";
+import type {
+  GetCommitDetailListRequest,
+  GetRepoListRequest,
+} from "../types/index.ts";
 
 const githubService = new GithubService();
 
@@ -23,12 +27,12 @@ export const getRepoList = async (_req: Request, res: Response) => {
   }
 };
 
-export const getCommitList = async (req: Request, res: Response) => {
+export const getCommitList = async (
+  req: Request<GetRepoListRequest>,
+  res: Response,
+) => {
   try {
-    const { repoOrg, repoName } = req.params as {
-      repoOrg: string;
-      repoName: string;
-    };
+    const { repoOrg, repoName } = req.params;
     if (!repoOrg || !repoName) {
       res.status(400).json({ error: "Missing repoOrg or repoName" });
       return;
@@ -40,13 +44,12 @@ export const getCommitList = async (req: Request, res: Response) => {
   }
 };
 
-export const getCommitDetailList = async (req: Request, res: Response) => {
+export const getCommitDetailList = async (
+  req: Request<GetCommitDetailListRequest>,
+  res: Response,
+) => {
   try {
-    const { repoOrg, repoName, commitHash } = req.params as {
-      repoOrg: string;
-      repoName: string;
-      commitHash: string;
-    };
+    const { repoOrg, repoName, commitHash } = req.params;
     if (!repoOrg || !repoName || !commitHash) {
       res
         .status(400)

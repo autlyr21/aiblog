@@ -34,3 +34,14 @@ export interface UpdatePostRequest {
   content?: string;
   tags?: string[];
 }
+
+export interface GetRepoListRequest {
+  repoOrg: string;
+  repoName: string;
+}
+
+export interface GetCommitDetailListRequest {
+  repoOrg: string;
+  repoName: string;
+  commitHash: string;
+}
