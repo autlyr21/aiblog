@@ -1,4 +1,4 @@
-import type { CommitItem } from "../types/index.ts";
+import type { CommitItem } from "@/types/index.ts";
 
 export const getCommitDate = (data: CommitItem): string =>
   data.commit.author?.date ||

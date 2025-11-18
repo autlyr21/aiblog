@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { getApiBase } from "../utils";
-import { type PostSummary } from "../types/post";
-import { formatDate } from "../utils/date";
-import { getPostHref } from "../utils/routes";
-import { useFetchJson } from "../hooks/useFetchJson";
+import { getApiBase } from "@/utils";
+import { type PostSummary } from "@/types/post";
+import { formatDate } from "@/utils/date";
+import { getPostHref } from "@/utils/routes";
+import { useFetchJson } from "@/hooks/useFetchJson";
 
 export const MainPage = () => {
   const navigate = useNavigate();

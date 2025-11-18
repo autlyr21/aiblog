@@ -1,7 +1,7 @@
 import { Octokit } from "octokit";
-import type { CommitFile, CommitItem } from "../types/index.ts";
+import type { CommitFile, CommitItem } from "@/types/index.ts";
 import { type Endpoints } from "@octokit/types";
-import { getCommitDate } from "../utils/github.ts";
+import { getCommitDate } from "@/utils/github.ts";
 
 type CommitDetailResponse =
   Endpoints["GET /repos/{owner}/{repo}/commits/{ref}"]["response"]["data"];
